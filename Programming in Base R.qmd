@@ -1,0 +1,192 @@
+---
+title: "Programming in Base R"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+**Basic Vector Practice**
+
+undefin#undefined
+
+```{r}
+pre_bp <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
+```
+
+```{r}
+post_bp <- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
+```
+
+```{r}
+attributes(pre_bp)
+```
+
+```{r}
+pre_treatment_values
+```
+
+```{r}
+names(pre_bp) <- paste("Subject", 1:20, sep = "_")
+```
+
+```{r}
+patient <- names(pre_bp)
+```
+
+```{r}
+names(post_bp) <- paste("Subject", 1:20, sep = "_")
+```
+
+```{r}
+patient <- names(post_bp)
+```
+
+```{r}
+diff_bp <- pre_treatment_values - after_treatment_values
+```
+
+```{r}
+diff_bp
+```
+
+```{r}
+mean(diff_bp)
+```
+
+```{r}
+which(diff_bp>2)
+```
+
+`{mean(diff_bp>2}`
+
+```{r}
+diff_bp_positive <- subset(diff_bp > 0)
+```
+
+```{r}
+mean(diff_bp_positive)
+```
+
+**Basic Data Frame Practice**
+
+```{r}
+treatments <- data.frame(patient, pre_bp, post_bp, diff_bp)
+treatments
+```
+
+```{r}
+newdata <- subset(treatment, diff_bp < 0,
+select=c(diff_bp))
+```
+
+```{r}
+treatment$col5 <- apply(treatment, 1, if(post_bp > 120 TRUE)
+```
+
+```{r}
+knitr::kable(bp_df)
+```
+
+**Task 3: List practice**
+
+```{r}
+placebo <- list(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+```
+
+```{r}
+treatment[1]
+```
+
+```{r}
+placebo[1]
+```
+
+```{r}
+list12 <- list(treatment, placebo)
+```
+
+```{r}
+list12
+```
+
+**Task 4: Control Flow Practice**
+
+```{r}
+treatment$status <- character(20)
+```
+
+```{r}
+placebo$status <- character(20)
+```
+
+```{r}
+my_fun <- get(stat)
+```
+
+```{r}
+for (i in 1:17){
+  if post_treatment <= 120 "Optimal"
+  else if 120 < post_treatment <= 130 "Borderline"
+  else if post_treatment > 130 "High"
+}
+```
+
+```{r}
+for (post_treatment in placebo){
+  if post_treatment <= 120 "Optimal"
+  else if 120 < post_treatment <= 130 "Borderline"
+  else if post_treatment > 130 "High"
+}
+```
+
+```{r}
+for (post_treatment in treatment){
+  if post_treatment <= 120 "Optimal"
+  else if 120 < post_treatment <= 130 "Borderline"
+  else if post_treatment > 130 "High"
+}
+```
+
+```{r}
+placebo$pre_bp
+```
+
+**Task 5: Function Writing**
+
+```{r}
+lapply(x, fun(treatment, placebo))
+```
+
+```{r}
+standardize <- function(patient, center = TRUE, scale = TRUE) {
+  mean <- mean(patient) #save these so we can return them
+  stdev <- sd(patient)
+  if (center) {
+    patient <- patient - mean
+    }
+  if (scale) {
+    patient <- patient / stdev
+    }
+  return(list(patient, mean, stdev))
+  }
+```
